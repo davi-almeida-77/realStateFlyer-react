@@ -4,6 +4,7 @@ import { PiPhoneLight } from "react-icons/pi";
 import { PiLockLight } from "react-icons/pi";
 import { PiEyeLight } from "react-icons/pi";
 import { PiEyeSlashLight } from "react-icons/pi";
+import { SwitchDemo } from "../components/Button";
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
@@ -54,9 +55,7 @@ export default function Register() {
 
         <div className="flex items-center justify-between mb-4">
           <span className="text-[#1b374d] font-semibold text-sm lowercase mt-3 mx-3">REMINDER ME NEXT TIME</span>
-          <button className="bg-white text-[#1B374D] px-4 py-1 rounded-full font-semibold shadow">
-            
-          </button>
+        <SwitchDemo />
         </div>
 
 
