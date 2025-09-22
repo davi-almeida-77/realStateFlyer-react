@@ -1,6 +1,7 @@
 import { Fragment } from 'react'
-import { Popover, Transition } from '@headlessui/react'
+import { Popover, Transition, Button } from '@headlessui/react'
 import { ChevronDownIcon, PhoneIcon, EnvelopeIcon } from '@heroicons/react/20/solid'
+import { IoSearchOutline } from "react-icons/io5";
 
 export default function Home() {
   return (
@@ -59,9 +60,35 @@ export default function Home() {
         </div>
       </header>
 
-      <main className="flex-grow px-6 py-10">
-        <h1 className="text-3xl font-bold">Página Home</h1>
-        <p className="mt-4 text-gray-600">Conteúdo principal vai aqui...</p>
+              
+      <main className="flex grow px-6 py-10">
+        <div className="flex w-full justify-center items-center space-x-8">
+
+
+          <div className="w-1/2 flex flex-col justify-center items-center text-center">
+            <h1 className="text-7xl w-8/12  font-light"> MIAMI BEACH REAL STATE EXPERTS </h1>
+            <p className="mt-4 text-gray-600"> Over 1000+ Happy CLients Served in Miami, FL </p>
+          </div>
+
+
+    <div className="w-1/2">
+      <p className='w-7/12'>
+          Discover Your Dream Home in Miami!
+          Experience luxury living in the heart of Miami. Whether you’re looking for a modern condo with stunning ocean views or a spacious 
+          family home in a vibrant neighborhood, we have the perfect property for you.
+          Live the Miami lifestyle—sun, style, and sophistication await 
+          Contact us today for exclusive listings and private tours!
+      </p>
+        <Button className="rounded bg-slate-800 px-4 py-2 text-sm text-white font-semibold data-active:bg-sky-700 data-hover:bg-sky-500 mt-4 hover:bg-slate-400 transition-colors duration-600">
+              <span className="flex items-center gap-2">
+          <IoSearchOutline className='font-bold size-4'  />
+              Search Homes
+              </span>
+          </Button>
+
+          </div>
+          
+        </div>
       </main>
 
       <footer className="backdrop-blur-sm flex justify-center items-center h-14 bg-slate-200  uppercase font-bold text-slate-800 hover:text-slate-600 transition-colors duration-300 cursor-pointer">
