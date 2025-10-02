@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Disclosure, Listbox } from '@headlessui/react';
+
+const propertyTypes = ["Apartment", "House", "Townhouse", "Lot", "Penthouse"];
 
 function Customization() {
   const [specialty, setSpecialty] = useState('');
@@ -7,13 +10,44 @@ function Customization() {
   const [clients, setClients] = useState('');
   const [sales, setSales] = useState('');
   const [workPlaces, setWorkPlaces] = useState([
-    { location: '', image: '' }
+    {
+      location: '',
+      image: '',
+      propertyType: '',
+      totalArea: '',
+      usableArea: '',
+      bedrooms: '',
+      bathrooms: '',
+      laundryArea: '',
+      parkingSpots: '',
+      swimmingPool: '',
+      floor: '',
+      marketValue: '',
+      appreciation: ''
+    }
   ]);
 
   const navigate = useNavigate();
 
   const addWorkPlace = () => {
-    setWorkPlaces([...workPlaces, { location: '', image: '' }]);
+    setWorkPlaces([
+      ...workPlaces,
+      {
+        location: '',
+        image: '',
+        propertyType: '',
+        totalArea: '',
+        usableArea: '',
+        bedrooms: '',
+        bathrooms: '',
+        laundryArea: '',
+        parkingSpots: '',
+        swimmingPool: '',
+        floor: '',
+        marketValue: '',
+        appreciation: ''
+      }
+    ]);
   };
 
   const updateWorkPlace = (index, field, value) => {
@@ -42,83 +76,210 @@ function Customization() {
       >
         <h1 className="text-[#1B374D] text-6xl font-normal mb-3 text-left">Customization</h1>
 
+
         <div>
-          <label className="text-[#1B374D] text-base font-medium mb-1 mx-3 capitalize text-left block">
+          <label className="text-[#1B374D] text-base font-medium mb-1 mx-3 block">
             Specialty
           </label>
           <div className="flex items-center bg-[#F5F6F8] rounded-full px-4 py-2">
             <input
               type="text"
-              className="flex-1 text-[#1B374D] placeholder-[#919BA2] placeholder:font-semibold placeholder:tracking-wider focus:outline-none font-semibold bg-transparent"
+              className="flex-1 text-[#1B374D] placeholder-[#919BA2] font-semibold focus:outline-none bg-transparent"
               value={specialty}
               onChange={(e) => setSpecialty(e.target.value)}
             />
           </div>
         </div>
 
+
         <div>
-          <label className="text-[#1B374D] text-base font-medium mb-1 mx-3 capitalize text-left block">
+          <label className="text-[#1B374D] text-base font-medium mb-1 mx-3 block">
             Mini Bio
           </label>
           <textarea
-            className="w-full bg-[#F5F6F8] text-[#1B374D] placeholder-[#919BA2] placeholder:font-semibold placeholder:tracking-wider placeholder:text-center focus:outline-none font-semibold px-4 py-2 rounded-2xl resize-none items-center text-center flex justify-center" 
+            className="w-full bg-[#F5F6F8] text-[#1B374D] placeholder-[#919BA2] font-semibold focus:outline-none px-4 py-2 rounded-2xl resize-none text-center"
             rows={2}
             value={bio}
             onChange={(e) => setBio(e.target.value)}
           ></textarea>
         </div>
 
+
         <div>
-          <label className="text-[#1B374D] text-base font-medium mb-1 mx-3 capitalize text-left block">
+          <label className="text-[#1B374D] text-base font-medium mb-1 mx-3 block">
             Clients Number
           </label>
           <div className="flex items-center bg-[#F5F6F8] rounded-full px-4 py-2">
             <input
               type="text"
-              className="flex-1 text-[#1B374D] placeholder-[#919BA2] placeholder:font-semibold placeholder:tracking-wider focus:outline-none font-semibold bg-transparent justify-center text-center items-center"
+              className="flex-1 text-[#1B374D] placeholder-[#919BA2] font-semibold focus:outline-none bg-transparent text-center"
               value={clients}
               onChange={(e) => setClients(e.target.value)}
             />
           </div>
         </div>
 
+
         <div>
-          <label className="text-[#1B374D] text-base font-medium mb-1 mx-3 capitalize text-left block">
+          <label className="text-[#1B374D] text-base font-medium mb-1 mx-3 block">
             Sales Number
           </label>
-          <div className="flex-1 text-[#1B374D] placeholder-[#919BA2] placeholder:font-semibold placeholder:tracking-wider focus:outline-none font-semibold bg-transparent justify-center text-center items-center">
-            <div className="flex items-center bg-[#F5F6F8] rounded-full px-4 py-2">
+          <div className="flex items-center bg-[#F5F6F8] rounded-full px-4 py-2">
             <input
               type="text"
-              className="flex-1 text-[#1B374D] placeholder-[#919BA2] placeholder:font-semibold placeholder:tracking-wider focus:outline-none font-semibold bg-transparent justify-center text-center items-center"
+              className="flex-1 text-[#1B374D] placeholder-[#919BA2] font-semibold focus:outline-none bg-transparent text-center"
               value={sales}
               onChange={(e) => setSales(e.target.value)}
             />
           </div>
-          </div>
         </div>
 
+
         <div>
-          <label className="text-[#1B374D] text-base font-medium mb-2 mx-3 capitalize text-left block">
+          <label className="text-[#1B374D] text-base font-medium mb-2 mx-3 block">
             Work Places
           </label>
           {workPlaces.map((place, index) => (
-            <div key={index} className="mb-4 bg-[#F5F6F8] rounded-2xl p-4">
-              <label className="block mb-1 text-sm text-[#1B374D] font-medium">Location Name</label>
-              <input
-                type="text"
-                className="w-full bg-white border border-[#CCC] px-3 py-2 rounded-full mb-2 text-[#1B374D] focus:outline-none"
-                value={place.location}
-                onChange={(e) => updateWorkPlace(index, 'location', e.target.value)}
-              />
-              <label className="block mb-1 text-sm text-[#1B374D] font-medium">Image URL</label>
-              <input
-                type="text"
-                className="w-full bg-white border border-[#CCC] px-3 py-2 rounded-full text-[#1B374D] focus:outline-none"
-                value={place.image}
-                onChange={(e) => updateWorkPlace(index, 'image', e.target.value)}
-              />
-            </div>
+            <Disclosure key={index}>
+              {({ open }) => (
+                <div className="mb-4 bg-[#F5F6F8] rounded-2xl p-4">
+                  <Disclosure.Button className="w-full text-left text-[#1B374D] font-semibold flex justify-between items-center">
+                    {place.location || `Property ${index + 1}`} <span>{open ? "-" : "+"}</span>
+                  </Disclosure.Button>
+                  <Disclosure.Panel className="mt-3 space-y-2">
+
+                    <label className="block text-sm text-[#1B374D] font-medium">Location Name</label>
+                    <input
+                      type="text"
+                      className="w-full bg-white border border-[#CCC] px-3 py-2 rounded-full mb-2 text-[#1B374D] focus:outline-none"
+                      value={place.location}
+                      onChange={(e) => updateWorkPlace(index, 'location', e.target.value)}
+                    />
+
+
+                    <label className="block text-sm text-[#1B374D] font-medium">Image URL</label>
+                    <input
+                      type="text"
+                      className="w-full bg-white border border-[#CCC] px-3 py-2 rounded-full mb-2 text-[#1B374D] focus:outline-none"
+                      value={place.image}
+                      onChange={(e) => updateWorkPlace(index, 'image', e.target.value)}
+                    />
+
+
+                    <label className="block text-sm text-[#1B374D] font-medium">Property Type</label>
+                    <Listbox
+                      value={place.propertyType}
+                      onChange={(val) => updateWorkPlace(index, 'propertyType', val)}
+                    >
+                      <Listbox.Button className="w-full bg-white border border-[#CCC] px-3 py-2 rounded-full text-left text-[#1B374D]">
+                        {place.propertyType || "Select"}
+                      </Listbox.Button>
+                      <Listbox.Options className="mt-1 bg-white border border-[#CCC] rounded-xl">
+                        {propertyTypes.map((type, i) => (
+                          <Listbox.Option key={i} value={type} className="px-3 py-2 hover:bg-[#F5F6F8] cursor-pointer">
+                            {type}
+                          </Listbox.Option>
+                        ))}
+                      </Listbox.Options>
+                    </Listbox>
+
+
+                    <div className="flex space-x-2">
+                      <div className="flex-1">
+                        <label className="block text-sm text-[#1B374D] font-medium">Total Area (m²)</label>
+                        <input
+                          type="number"
+                          className="w-full bg-white border border-[#CCC] px-3 py-2 rounded-full text-[#1B374D] focus:outline-none"
+                          value={place.totalArea}
+                          onChange={(e) => updateWorkPlace(index, 'totalArea', e.target.value)}
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <label className="block text-sm text-[#1B374D] font-medium">Usable Area (m²)</label>
+                        <input
+                          type="number"
+                          className="w-full bg-white border border-[#CCC] px-3 py-2 rounded-full text-[#1B374D] focus:outline-none"
+                          value={place.usableArea}
+                          onChange={(e) => updateWorkPlace(index, 'usableArea', e.target.value)}
+                        />
+                      </div>
+                    </div>
+
+
+                    <label className="block text-sm text-[#1B374D] font-medium">Bedrooms</label>
+                    <input
+                      type="number"
+                      className="w-full bg-white border border-[#CCC] px-3 py-2 rounded-full text-[#1B374D] focus:outline-none"
+                      value={place.bedrooms}
+                      onChange={(e) => updateWorkPlace(index, 'bedrooms', e.target.value)}
+                    />
+
+
+                    <label className="block text-sm text-[#1B374D] font-medium">Bathrooms</label>
+                    <input
+                      type="number"
+                      className="w-full bg-white border border-[#CCC] px-3 py-2 rounded-full text-[#1B374D] focus:outline-none"
+                      value={place.bathrooms}
+                      onChange={(e) => updateWorkPlace(index, 'bathrooms', e.target.value)}
+                    />
+
+
+                    <label className="block text-sm text-[#1B374D] font-medium">Laundry Area (m²)</label>
+                    <input
+                      type="number"
+                      className="w-full bg-white border border-[#CCC] px-3 py-2 rounded-full text-[#1B374D] focus:outline-none"
+                      value={place.laundryArea}
+                      onChange={(e) => updateWorkPlace(index, 'laundryArea', e.target.value)}
+                    />
+
+
+                    <label className="block text-sm text-[#1B374D] font-medium">Parking Spots</label>
+                    <input
+                      type="number"
+                      className="w-full bg-white border border-[#CCC] px-3 py-2 rounded-full text-[#1B374D] focus:outline-none"
+                      value={place.parkingSpots}
+                      onChange={(e) => updateWorkPlace(index, 'parkingSpots', e.target.value)}
+                    />
+
+
+                    <label className="block text-sm text-[#1B374D] font-medium">Swimming Pool (Yes/No)</label>
+                    <input
+                      type="text"
+                      className="w-full bg-white border border-[#CCC] px-3 py-2 rounded-full text-[#1B374D] focus:outline-none"
+                      value={place.swimmingPool}
+                      onChange={(e) => updateWorkPlace(index, 'swimmingPool', e.target.value)}
+                    />
+
+
+                    <label className="block text-sm text-[#1B374D] font-medium">Floor (if apartment)</label>
+                    <input
+                      type="number"
+                      className="w-full bg-white border border-[#CCC] px-3 py-2 rounded-full text-[#1B374D] focus:outline-none"
+                      value={place.floor}
+                      onChange={(e) => updateWorkPlace(index, 'floor', e.target.value)}
+                    />
+
+
+                    <label className="block text-sm text-[#1B374D] font-medium">Market Value ($)</label>
+                    <input
+                      type="number"
+                      className="w-full bg-white border border-[#CCC] px-3 py-2 rounded-full text-[#1B374D] focus:outline-none"
+                      value={place.marketValue}
+                      onChange={(e) => updateWorkPlace(index, 'marketValue', e.target.value)}
+                    />
+
+
+                    <label className="block text-sm text-[#1B374D] font-medium">Appreciation Potential (%)</label>
+                    <input
+                      type="number"
+                      className="w-full bg-white border border-[#CCC] px-3 py-2 rounded-full text-[#1B374D] focus:outline-none"
+                      value={place.appreciation}
+                      onChange={(e) => updateWorkPlace(index, 'appreciation', e.target.value)}
+                    />
+                  </Disclosure.Panel>
+                </div>
+              )}
+            </Disclosure>
           ))}
           <button
             type="button"
