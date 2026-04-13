@@ -7,12 +7,17 @@ import NeighborhoodInfo from './NeighborhoodInfo'
 import Navbar           from '@/components/layout/Navbar'
 import Footer           from '@/components/layout/Footer'
 
+const API = 'http://localhost:3001'
+
 export default function ListingsLayout({ pageType, title, subtitle, properties }) {
   const navigate = useNavigate()
 
-  const [selected,         setSelected]        = useState(null)
-  const [showNeighborhood, setShowNeighborhood] = useState(false)
-  const [closing,          setClosing]          = useState(false)
+  const [selected,             setSelected]            = useState(null)
+  const [showNeighborhood,     setShowNeighborhood]    = useState(false)
+  const [closing,              setClosing]             = useState(false)
+  const [neighborhoodData,     setNeighborhoodData]    = useState(null)  // ← ADD
+  const [neighborhoodLoading,  setNeighborhoodLoading] = useState(false) // ← ADD
+  const [neighborhoodError,    setNeighborhoodError]   = useState(null)  // ← ADD
   const [query,  setQuery]  = useState('')
   const [price,  setPrice]  = useState('Any Price')
   const [beds,   setBeds]   = useState('Any Beds')
@@ -36,15 +41,32 @@ export default function ListingsLayout({ pageType, title, subtitle, properties }
     return true
   }), [properties, query, price, beds, type])
 
-  // When selected changes: hide panel, wait for GTA animation, then show
+  // ← SUBSTITUIU o useEffect anterior
   useEffect(() => {
     dismissPanel()
     if (!selected) return
+
+    // Fetch em background enquanto animação do mapa roda
+    const address = selected.address || `${selected.city}, ${selected.state}`
+    setNeighborhoodLoading(true)
+    setNeighborhoodData(null)
+    setNeighborhoodError(null)
+
+    fetch(`${API}/api/neighborhood?address=${encodeURIComponent(address)}&radius=1000`)
+      .then(r => { if (!r.ok) throw new Error(r.status); return r.json() })
+      .then(data => {
+        setNeighborhoodData(data)
+        setNeighborhoodLoading(false)
+      })
+      .catch(() => {
+        setNeighborhoodError('Could not load neighborhood data.')
+        setNeighborhoodLoading(false)
+      })
+
     const id = setTimeout(() => setShowNeighborhood(true), 2400)
     return () => clearTimeout(id)
   }, [selected])
 
-  // Smooth slide-down dismiss (600ms) then unmount
   function dismissPanel() {
     if (!showNeighborhood) return
     setClosing(true)
@@ -67,7 +89,6 @@ export default function ListingsLayout({ pageType, title, subtitle, properties }
     navigate('/property/' + id)
   }
 
-  // Click map → slide panel down smoothly
   function handleMapClick() {
     if (showNeighborhood) dismissPanel()
   }
@@ -109,7 +130,7 @@ export default function ListingsLayout({ pageType, title, subtitle, properties }
           />
         </div>
 
-        {/* Map — sticky, respects hero + filter layout */}
+        {/* Map */}
         <div
           className="listings-map-panel"
           onClick={handleMapClick}
@@ -125,14 +146,18 @@ export default function ListingsLayout({ pageType, title, subtitle, properties }
           }}
         >
           <div style={{ position: 'absolute', inset: '12px', borderRadius: '12px', overflow: 'hidden' }}>
-            <ListingsMap selectedProp={selected} allProps={filtered} />
+            <ListingsMap
+              selectedProp={selected}
+              allProps={filtered}
+              selectedCoords={neighborhoodData?.meta ?? null}  // ← ADD
+            />
           </div>
         </div>
       </div>
 
       <Footer />
 
-      {/* NeighborhoodInfo — fixed to true viewport bottom, independent of map */}
+      {/* NeighborhoodInfo */}
       {(showNeighborhood || closing) && selected && (
         <div
           className="listings-neighborhood-panel"
@@ -152,6 +177,9 @@ export default function ListingsLayout({ pageType, title, subtitle, properties }
           <NeighborhoodInfo
             prop={selected}
             onClose={dismissPanel}
+            geoData={neighborhoodData}         // ← ADD
+            loading={neighborhoodLoading}      // ← ADD
+            error={neighborhoodError}          // ← ADD
           />
         </div>
       )}
