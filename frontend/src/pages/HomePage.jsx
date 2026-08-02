@@ -131,7 +131,7 @@ function HeroIntro() {
         <motion.div className="flex items-center gap-5 flex-wrap"
           initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.1, duration: 0.7 }}>
-          <a href="/property/hamida-villa" data-hover
+          <a href="/sale" data-hover
             className="flex items-center gap-3 px-7 py-3.5 bg-white text-dark rounded-full font-mono text-[11px] tracking-widest hover:bg-white/90 transition-colors">
             EXPLORE PROPERTIES <ArrowRight size={13} strokeWidth={1.5} />
           </a>
