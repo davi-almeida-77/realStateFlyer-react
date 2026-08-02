@@ -143,13 +143,10 @@ Curated portfolio spanning the USA, UK, Italy, France, Japan, Australia, and Bra
 
 ### Home Page
 
-![Home Page](assets/home.gif)
+![Home Page](assets/Home.gif)
 
 ### Sale & Rent Listings with Map and GeoApify Data
 
-![Sale Rent Page](assets/sale-rent.gif)
+![Sale Rent Page](assets/SaleRent.gif.gif)
 
-### Property Detail — AI Description with Typewriter Effect
-
-![Property Detail](assets/property-detail.gif)
 
