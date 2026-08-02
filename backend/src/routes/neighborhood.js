@@ -2,13 +2,11 @@ const express    = require('express')
 const { geocode, getNeighborhoodData } = require('../services/geoapifyService')
 const router = express.Router()
 
-// GET /api/neighborhood?lat=-23.56&lon=-46.65&radius=1000
-// GET /api/neighborhood?address=Av. Paulista, 1000&radius=1000
 router.get('/', async (req, res) => {
   try {
     let { lat, lon, address, radius = 1000 } = req.query
 
-    radius = Math.min(Math.max(Number(radius), 200), 3000) // clamp 200–3000m
+    radius = Math.min(Math.max(Number(radius), 200), 3000) 
 
     if (address && !lat) {
       const coords = await geocode(address)
@@ -18,7 +16,7 @@ router.get('/', async (req, res) => {
 
     if (!lat || !lon) {
       return res.status(400).json({
-        error: 'Forneça lat+lon ou address como query params',
+        error: 'Provide lat+lon or address as query params.',
       })
     }
 
