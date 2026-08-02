@@ -150,3 +150,6 @@ Curated portfolio spanning the USA, UK, Italy, France, Japan, Australia, and Bra
 ![Sale Rent Page](assets/SaleRent.gif)
 
 
+![Property Details Page](assets/Property.gif)
+
+
