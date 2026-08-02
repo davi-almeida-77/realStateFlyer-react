@@ -10,7 +10,7 @@ import InteriorSection    from '@/components/sections/InteriorSection'
 import ExteriorSection    from '@/components/sections/ExteriorSection'
 import LocationAdvantages from '@/components/sections/LocationAdvantages'
 import FeaturedProperties from '@/components/sections/FeaturedProperties'
-import { HAMIDA_VILLA, FEATURED_PROPERTIES } from '@/data/property'
+import { PROPERTIES, RENT_PROPERTIES, getPropertyById } from '@/data/properties'
 
 const API = import.meta.env.VITE_API_URL ?? 'http://localhost:3001'
 
@@ -28,8 +28,8 @@ export default function PropertyPage() {
       axios.get(`${API}/api/properties/featured`).catch(() => null),
     ]).then(([propRes, featRes]) => {
       if (!active) return
-      setProperty(propRes?.data?.data ?? HAMIDA_VILLA)
-      setFeatured(featRes?.data?.data ?? FEATURED_PROPERTIES)
+      setProperty(propRes?.data?.data ?? getPropertyById(id) ?? PROPERTIES[0] )
+      setFeatured(featRes?.data?.data ?? RENT_PROPERTIES )
     }).finally(() => { if (active) setLoading(false) })
     return () => { active = false }
   }, [id])
