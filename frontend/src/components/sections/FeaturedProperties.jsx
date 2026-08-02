@@ -1,7 +1,7 @@
 import { motion } from 'motion/react'
 import { MapPin, BedDouble, Bath, Maximize } from 'lucide-react'
 import { FadeUp } from '@/components/ui/AnimatedText'
-import { FEATURED_PROPERTIES } from '@/data/property'
+import { RENT_PROPERTIES } from '@/data/properties'
 
 function PropertyCard({ prop, index }) {
   const isRent = prop.status?.includes('for-rent')
@@ -31,7 +31,7 @@ function PropertyCard({ prop, index }) {
 }
 
 export default function FeaturedProperties({ properties }) {
-  const items = properties?.length ? properties : FEATURED_PROPERTIES
+  const items = properties?.length ? properties : RENT_PROPERTIES
   return (
     <section className="px-6 md:px-12 py-20 bg-bg">
       <FadeUp className="mb-12">
